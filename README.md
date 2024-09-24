@@ -14,3 +14,6 @@ Run example
 ```bash
 cargo run --example hello
 ```
+```bash
+cargo run --example window
+```

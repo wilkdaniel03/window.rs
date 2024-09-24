@@ -1,20 +1,10 @@
-use x11::xlib;
-
-static mut DPY: *mut xlib::Display = std::ptr::null_mut();
-static mut SCREEN: i32 = 0;
-
-fn open_display() {
-    unsafe {
-        DPY = xlib::XOpenDisplay(std::ptr::null());
-        SCREEN = xlib::XDefaultScreen(DPY);
-    }
-}
+mod x;
 
 pub fn create_window() {
-    open_display();
-    unsafe {
-        println!("{:?},{}",DPY,SCREEN);
-    }
+    let dpy = x::open_display();
+    let screen = x::get_default_screen(dpy);
+    let (_root,win) = x::create_window(dpy,screen,300,300);
+    x::close_all(dpy,win);
 }
 
 pub fn say_hi() {
